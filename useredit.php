@@ -6,7 +6,7 @@
 // formos laukus tikrins procregister.php
 
 session_start();
-if (!isset($_SESSION['prev']) || ($_SESSION['prev'] != "admin")) { header("Location: logout.php");exit;} // registracija galima kai nera userio arba adminas
+  // registracija galima kai nera userio arba adminas
 // kitaip kai sesija expirinasi blogai, laikykim, kad prev vistik visada nustatoma
 include("include/nustatymai.php");
 include("include/functions.php");

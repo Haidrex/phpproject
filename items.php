@@ -36,6 +36,7 @@ $_SESSION['prev'] = "items";
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
 			</div> 
             <center><font size="5">Turimos prekės ir jų likučiai sandėlyje</font></center></td></tr></table> <br>
+            <center><b><?php echo $_SESSION['sold_message']; ?></b></center>
             <table id="t01">
                 <tr>
                     <th>ID</th>
@@ -52,7 +53,7 @@ $_SESSION['prev'] = "items";
                 $result = mysqli_query($db,$sql);
                 while($row = mysqli_fetch_array($result)){
                     echo "<tr><td>".$row['kodas']."</td><td>".$row['pavadinimas']."</td><td>".$row['tiekejoid']."</td><td>".$row['kiekis'].
-                    "</td><td>".$row['kaina']."€</td><td><button id=\"regButton\">Parduoti</button></td></tr>";
+                    "</td><td>".$row['kaina']."€</td><td><a href=\"sell.php?kodas=".$row['kodas']."\"><button id=\"regButton\"	>Parduoti</button></a></td></tr>";
                 }
                 ?>
             </table>

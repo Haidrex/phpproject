@@ -6,6 +6,7 @@ define("DB_PASS", "");
 define("DB_NAME", "sandelis");
 define("TBL_USERS", "vartotojas");
 define("TBL_PRODUCTS", "preke");
+define("TBL_SOLD", "pardavimas");
 $user_roles=array(      // vartotojų rolių vardai lentelėse ir  atitinkamos userlevel reikšmės
 	"Administratorius"=>"1",
 	"Vadybininkas"=>"2",

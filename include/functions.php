@@ -26,6 +26,11 @@ function inisession($arg) {   //valom sesijos kintamuosius
 		$_SESSION['amount_error']=""; 
 		$_SESSION['item_error'] ="";
 		$_SESSION['price_error']="";
+		$_SESSION['amount_sell']="";
+		$_SESSION['price_sell']="";
+		$_SESSION['price_sell_error']="";
+		$_SESSION['amount_sell_error']="";
+		$_SESSION['sold_message']="";
         }
 
 function checkname ($username){   // Vartotojo vardo sintakse
@@ -44,7 +49,21 @@ function checkname ($username){   // Vartotojo vardo sintakse
 			return true;
 		}
    }
-		  
+
+ function checkamount($productid, $amount){
+	$db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+	$sql = "SELECT * FROM " . TBL_PRODUCTS. " WHERE kodas = '$productid'";
+	$result = mysqli_query($db, $sql);
+	$row = mysqli_fetch_assoc($result); 
+	$amountleft = $row['kiekis'];
+	if($amount > $amountleft){
+		$_SESSION['amount_sell_error'] = "<font size=\"2\" color=\"#ff0000\">* Bandoma parduoti daugiau nei yra sandėlyje</font>";
+		return false;
+	}
+	return true;
+
+ }  
+
  function checkregname($username,$firstname, $lastname){
 	if (!$username || strlen($username = trim($username)) == 0) 
 	{$_SESSION['name_error']=
