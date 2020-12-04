@@ -31,6 +31,7 @@ function inisession($arg) {   //valom sesijos kintamuosius
 		$_SESSION['price_sell_error']="";
 		$_SESSION['amount_sell_error']="";
 		$_SESSION['sold_message']="";
+		$_SESSION['offered_message']="";
         }
 
 function checkname ($username){   // Vartotojo vardo sintakse

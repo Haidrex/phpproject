@@ -6,7 +6,7 @@ include("include/nustatymai.php");
 include("include/functions.php");
 if (!isset($_SESSION['prev']))
 { header("Location: logout.php");exit;}
-$_SESSION['prev']="admin";
+$_SESSION['prev']="offered";
 $user=$_SESSION['user'];
 $userlevel=$_SESSION['ulevel'];
 $role="";
@@ -32,6 +32,7 @@ $role="";
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
             </div> 
             <center><font size="5">Siūlomos prekės iš tiekėjų</font></center></td></tr></table> <br>
+            <center><b><?php echo $_SESSION['offered_message']; ?></b></center>
             <table id="t01">
                 <tr>
                     <th>ID</th>
@@ -48,7 +49,8 @@ $role="";
                 $result = mysqli_query($db,$sql);
                 while($row = mysqli_fetch_array($result)){
                     echo "<tr><td>".$row['kodas']."</td><td>".$row['pavadinimas']."</td><td>".$row['tiekejoid']."</td><td>".$row['kiekis'].
-                    "</td><td>".$row['kaina']."€</td><td><button id=\"regButton\" >Priimti</button><button id=\"regButton\" >Atmesti</button></td></tr>";
+                    "</td><td>".$row['kaina']."€</td><td><form id=\"acceptForm\" method=\"post\"><button id=\"regButton\" >Priimti</button></form>
+                    <a href=\"deny.php?kodas=".$row['kodas']."\"><button id=\"regButton\">Atmesti</button></form></td></tr>";
                 }
             ?>
 
