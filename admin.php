@@ -51,10 +51,10 @@ date_default_timezone_set("Europe/Vilnius");
 		<?php
                 $db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 
-                $sql = "SELECT slapyvardis, email, role.pavadinimas FROM " . TBL_USERS." u JOIN role ON u.roles_id=role.id";
+                $sql = "SELECT vartotojo_id,slapyvardis, email, role.pavadinimas FROM " . TBL_USERS." u JOIN role ON u.roles_id=role.id";
                 $result = mysqli_query($db,$sql);
                 while($row = mysqli_fetch_array($result)){
-                    echo "<tr><td>".$row['slapyvardis']."</td><td>".$row['email']."</td><td>".$row['pavadinimas']."</td><td><button id=\"regButton\" >Redaguoti</button></td></tr>";
+                    echo "<tr><td>".$row['slapyvardis']."</td><td>".$row['email']."</td><td>".$row['pavadinimas']."</td><td><a href=\"useredit.php?id=".$row['vartotojo_id']."\"><button id=\"regButton\"	>Redaguoti</button></a></td></tr>";
                 }
 			?>
 

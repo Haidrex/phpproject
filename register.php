@@ -37,7 +37,7 @@ $_SESSION['prev']="register";
                 <a href="logout.php">Atsijungti</a>
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
             </div>
-			<form action="proclogin.php" method="POST" id="myForm">
+			<form action="procregister.php" method="POST" id="myForm">
         <div class="form-group">
             <label for="exampleInputEmail1">Prisijungimo vardas</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user" value="<?php echo $_SESSION['name_login'];  ?>">
@@ -46,19 +46,19 @@ $_SESSION['prev']="register";
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Vardas</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" value="<?php echo $_SESSION['name_login'];  ?>">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" value="<?php echo $_SESSION['first_name_login'];  ?>">
             <?php echo $_SESSION['name_error']; 
 			?>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Pavardė</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" value="<?php echo $_SESSION['name_login'];  ?>">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" value="<?php echo $_SESSION['last_name_login'];  ?>">
             <?php echo $_SESSION['name_error']; 
 			?>
 		</div>
 		<div class="form-group">
             <label for="exampleInputEmail1">Elektroninis paštas</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user" value="<?php echo $_SESSION['name_login'];  ?>">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<?php echo $_SESSION['mail_login'];  ?>">
             <?php echo $_SESSION['name_error']; 
 			?>
         </div>
@@ -67,18 +67,18 @@ $_SESSION['prev']="register";
             <input type="password" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $_SESSION['pass_login']; ?>">
             <?php echo $_SESSION['pass_error']; 
 			?>
-		</div>
-		<select class="custom-select">
+        </div>
+        <label for="role">Pasirinkite rolę</label>
+		<select class="custom-select" name="role">
             <?php 
                 $db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-
-                $sql = mysqli_query($db, "SELECT pavadinimas FROM role");
+                $sql = mysqli_query($db, "SELECT id,pavadinimas FROM role");
                 while ($row = $sql->fetch_assoc()){
-                echo "<option value=\"owner1\">" . $row['pavadinimas'] . "</option>";
+                echo "<option value=".$row['id'].">" . $row['pavadinimas'] . "</option>";
                 }
             ?>
 			</select>
-        <button type="submit" class="btn btn-primary" name="login" value="Prisijungti">Registruoti</button>
+        <button type="submit" class="btn btn-primary" name="register" value="Registruoti">Registruoti</button>
         </form>          
         </body>
     </html>

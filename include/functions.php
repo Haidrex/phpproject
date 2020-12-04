@@ -34,14 +34,57 @@ function checkname ($username){   // Vartotojo vardo sintakse
 				 "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo vardas</font>";
 			 "";
 			 return false;}
-            elseif (!preg_match("/^([0-9a-zA-Z])*$/", $username))  /* Check if username is not alphanumeric */ 
+        elseif (!preg_match("/^([0-9a-zA-Z])*$/", $username))  /* Check if username is not alphanumeric */ 
 			{$_SESSION['name_error']=
 				"<font size=\"2\" color=\"#ff0000\">* Vartotojo vardas gali būti sudarytas<br>
 				&nbsp;&nbsp;tik iš raidžių ir skaičių</font>";
-		     return false;}
-	        else return true;
+			 return false;
+		}
+		else{
+			return true;
+		}
    }
-             
+		  
+ function checkregname($username,$firstname, $lastname){
+	if (!$username || strlen($username = trim($username)) == 0) 
+	{$_SESSION['name_error']=
+		 "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo vardas</font>";
+	 "";
+	 return false;}
+else if(!$firstname || strlen($firstname = trim($firstname)) == 0){
+	$_SESSION['first_name_error']=
+		 "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo vardas</font>";
+	 "";
+	 return false;
+}
+else if(!$lastname || strlen($lastname = trim($lastname)) == 0){
+	$_SESSION['last_name_error']=
+		 "<font size=\"2\" color=\"#ff0000\">* Neįvesta vartotojo pavardė</font>";
+	 "";
+	 return false;
+}
+elseif (!preg_match("/^([0-9a-zA-Z])*$/", $username))  /* Check if username is not alphanumeric */ 
+	{$_SESSION['name_error']=
+		"<font size=\"2\" color=\"#ff0000\">* Vartotojo vardas gali būti sudarytas<br>
+		&nbsp;&nbsp;tik iš raidžių ir skaičių</font>";
+	 return false;
+}
+else if(preg_match('~[0-9]+~', $firstname)){
+	$_SESSION['first_name_error']=
+		 "<font size=\"2\" color=\"#ff0000\">* Vartotojo vardas gali būti sudarytas tik iš raidžių</font>";
+	 "";
+	 return false;
+}
+else if(preg_match('~[0-9]+~', $lastname)){
+	$_SESSION['last_name_error']=
+		 "<font size=\"2\" color=\"#ff0000\">* Vartotojo pavardė gali būti sudaryta tik iš raidžių</font>";
+	 "";
+	 return false;
+}
+else{
+	return true;
+}
+ }
  function checkpass($pwd,$dbpwd) {     //  slaptazodzio tikrinimas (tik demo: min 4 raides ir/ar skaiciai) ir ar sutampa su DB esanciu
 	   if (!$pwd || strlen($pwd = trim($pwd)) == 0) 
 			{$_SESSION['pass_error']=

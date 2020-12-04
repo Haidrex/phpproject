@@ -1,65 +1,97 @@
-<?php 
-// useredit.php 
-// vartotojas gali pasikeisti slaptažodį ar email
-// formos reikšmes tikrins procuseredit.php. Esant klaidų pakartotinai rodant formą rodomos ir klaidos
+<?php
+// register.php registracijos forma
+// jei pats registruojasi rolė = DEFAULT_LEVEL, jei registruoja ADMIN_LEVEL vartotojas, rolę parenka
+// Kaip atsiranda vartotojas: nustatymuose $uregister=
+//                                         self - pats registruojasi, admin - tik ADMIN_LEVEL, both - abu atvejai galimi
+// formos laukus tikrins procregister.php
 
 session_start();
-// sesijos kontrole
-if (!isset($_SESSION['prev']) || (($_SESSION['prev'] != "index") && ($_SESSION['prev'] != "procuseredit")  && ($_SESSION['prev'] != "useredit")))
-{header("Location: logout.php");exit;
+if (!isset($_SESSION['prev']) || ($_SESSION['prev'] != "admin")) { header("Location: logout.php");exit;} // registracija galima kai nera userio arba adminas
+// kitaip kai sesija expirinasi blogai, laikykim, kad prev vistik visada nustatoma
+include("include/nustatymai.php");
+include("include/functions.php");
+if ($_SESSION['prev'] != "procuseredit")  inisession("part");  // pradinis bandymas registruoti
+$user=$_SESSION['user'];
+$userlevel=$_SESSION['ulevel'];
+$edituserid = $_GET['id'];
+$role="";
+{foreach($user_roles as $x=>$x_value)
+			      {if ($x_value == $userlevel) $role=$x;}
 }
-if ($_SESSION['prev'] == "index")								  
-	{$_SESSION['mail_login'] = $_SESSION['umail'];
-	$_SESSION['passn_error'] = "";      // papildomi kintamieji naujam password įsiminti
-	$_SESSION['passn_login'] = ""; }  //visos kitos turetų būti tuščios
-$_SESSION['prev'] = "useredit"; 
-?>
+$_SESSION['prev']="useredit";
 
- <html>
+$db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+$sql= "SELECT * FROM " . TBL_USERS. " WHERE vartotojo_id=".$edituserid;
+$result = mysqli_query($db,$sql); 
+$row = mysqli_fetch_array($result);
+$username = $row['slapyvardis'];
+$firstname = $row['vardas'];
+$lastname = $row['pavarde'];
+$email = $row['email'];
+$password = $row['slaptazodis'];
+$decryptedpass = substr(hash( 'sha256', $password ),5,32)
+?>
+    <html>
         <head>  
             <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8"> 
-            <title>Registracija</title>
+			<title>Registracija</title>
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
             <link href="include/styles.css" rel="stylesheet" type="text/css" >
         </head>
         <body>   
-            <table class="center"><tr><td> <img src="include/top.png"> </td></tr><tr><td> 
-				<table style="border-width: 2px; border-style: dotted;"><tr><td>
-                     Atgal į [<a href="index.php">Pradžia</a>] </td></tr>
-		        </table>               
-                <div align="center">   <font size="4" color="#ff0000"><?php echo $_SESSION['message']; ?><br></font>  
-					
-      <table bgcolor=#C3FDB8>
-        <tr><td>
-		<form action="procuseredit.php" method="POST" class="login">             
-        <center style="font-size:18pt;"><b>Paskyros redagavimas</b></center><br>
-		<center style="font-size:14pt;"><b>Vartotojas: <?php echo $_SESSION['user'];  ?></b></center>
-        
-        <p style="text-align:left;">Dabartinis slaptažodis:<br>
-            <input class ="s1" name="pass" type="password" value="<?php echo $_SESSION['pass_login']; ?>"><br>
-            <?php echo $_SESSION['pass_error']; ?>
-        </p>
-			
-		<p style="text-align:left;">Naujas slaptažodis:<br>
-            <input class ="s1" name="passn" type="password" value="<?php echo $_SESSION['passn_login']; ?>"><br>
-            <?php echo $_SESSION['passn_error']; ?>
-        </p>	
-			
-		<p style="text-align:left;">E-paštas:<br>
-			<input class ="s1" name="email" type="text" value="<?php echo $_SESSION['mail_login']; ?>"><br>
-			<?php echo $_SESSION['mail_error']; ?>
-        </p> 
-			
-        <p style="text-align:left;">
-            <input type="submit" name="login" value="Atnaujinti"/>     
-        </p>  
-        </form>
-        </td></tr>
-	 </table>
-  </div>
-  </td></tr>
-  </table>           
- </body>
-</html>
-	
-
-
+		<div class="topnav">
+                <a href="index.php">Pagrindinis</a>
+                <a href="admin.php">Vartotojai</a>
+                <a href="items.php">Sandėlis</a>
+                <a href="offer.php">Siūlyti prekę</a>
+                <a href="offered.php">Siūlomos prekės</a>
+                <a href="logout.php">Atsijungti</a>
+                <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
+            </div>
+			<form action="procuseredit.php" method="POST" id="myForm">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Prisijungimo vardas</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user"  value="<?php echo $username  ?>">
+            <?php echo $_SESSION['name_error']; 
+			?>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Vardas</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" value="<?php echo $firstname ?>">
+            <?php echo $_SESSION['name_error']; 
+			?>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Pavardė</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" value="<?php echo $lastname  ?>">
+            <?php echo $_SESSION['name_error']; 
+			?>
+		</div>
+		<div class="form-group">
+            <label for="exampleInputEmail1">Elektroninis paštas</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<?php echo $email  ?>">
+            <?php echo $_SESSION['name_error']; 
+			?>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Slaptazodis</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $_SESSION['pass_login'] ?>">
+            <?php echo $_SESSION['pass_error']; 
+			?>
+        </div>
+        <label for="role">Pasirinkite rolę</label>
+		<select class="custom-select" name="role">
+            <?php 
+                $db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+                $sql = mysqli_query($db, "SELECT id,pavadinimas FROM role");
+                while ($row = $sql->fetch_assoc()){
+                echo "<option value=".$row['id'].">" . $row['pavadinimas'] . "</option>";
+                }
+            ?>
+			</select>
+        <button type="submit" class="btn btn-primary" name="edituser" value="<?php echo $edituserid ?>">Registruoti</button>
+        </form>          
+        </body>
+    </html>
+   
