@@ -6,40 +6,45 @@
 // formos laukus tikrins procregister.php
 
 session_start();
-  // registracija galima kai nera userio arba adminas
+// registracija galima kai nera userio arba adminas
 // kitaip kai sesija expirinasi blogai, laikykim, kad prev vistik visada nustatoma
-include("include/nustatymai.php");
-include("include/functions.php");
-if ($_SESSION['prev'] != "procuseredit")  inisession("part");  // pradinis bandymas registruoti
-$user=$_SESSION['user'];
-$userlevel=$_SESSION['ulevel'];
-$edituserid = $_GET['id'];
-$role="";
-{foreach($user_roles as $x=>$x_value)
-			      {if ($x_value == $userlevel) $role=$x;}
+include "include/nustatymai.php";
+include "include/functions.php";
+if ($_SESSION['prev'] != "procuseredit") {
+    inisession("part");
 }
-$_SESSION['prev']="useredit";
+// pradinis bandymas registruoti
+$user = $_SESSION['user'];
+$userlevel = $_SESSION['ulevel'];
+$edituserid = $_GET['id'];
+$role = "";
+{foreach ($user_roles as $x => $x_value) {if ($x_value == $userlevel) {
+    $role = $x;
+}
+}
+}
+$_SESSION['prev'] = "useredit";
 
-$db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-$sql= "SELECT * FROM " . TBL_USERS. " WHERE vartotojo_id=".$edituserid;
-$result = mysqli_query($db,$sql); 
+$db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+$sql = "SELECT * FROM " . TBL_USERS . " WHERE vartotojo_id=" . $edituserid;
+$result = mysqli_query($db, $sql);
 $row = mysqli_fetch_array($result);
 $username = $row['slapyvardis'];
 $firstname = $row['vardas'];
 $lastname = $row['pavarde'];
 $email = $row['email'];
 $password = $row['slaptazodis'];
-$decryptedpass = substr(hash( 'sha256', $password ),5,32)
+$decryptedpass = substr(hash('sha256', $password), 5, 32)
 ?>
     <html>
-        <head>  
-            <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8"> 
+        <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
 			<title>Registracija</title>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
             <link href="include/styles.css" rel="stylesheet" type="text/css" >
         </head>
-        <body>   
+        <body>
 		<div class="topnav">
                 <a href="index.php">Pagrindinis</a>
                 <a href="admin.php">Vartotojai</a>
@@ -52,46 +57,46 @@ $decryptedpass = substr(hash( 'sha256', $password ),5,32)
 			<form action="procuseredit.php" method="POST" id="myForm">
         <div class="form-group">
             <label for="exampleInputEmail1">Prisijungimo vardas</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user"  value="<?php echo $username  ?>">
-            <?php echo $_SESSION['name_error']; 
-			?>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user"  value="<?php echo $username ?>">
+            <?php echo $_SESSION['name_error'];
+?>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Vardas</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" value="<?php echo $firstname ?>">
-            <?php echo $_SESSION['name_error']; 
-			?>
+            <?php echo $_SESSION['name_error'];
+?>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Pavardė</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" value="<?php echo $lastname  ?>">
-            <?php echo $_SESSION['name_error']; 
-			?>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" value="<?php echo $lastname ?>">
+            <?php echo $_SESSION['name_error'];
+?>
 		</div>
 		<div class="form-group">
             <label for="exampleInputEmail1">Elektroninis paštas</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<?php echo $email  ?>">
-            <?php echo $_SESSION['name_error']; 
-			?>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<?php echo $email ?>">
+            <?php echo $_SESSION['name_error'];
+?>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Slaptazodis</label>
             <input type="password" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $_SESSION['pass_login'] ?>">
-            <?php echo $_SESSION['pass_error']; 
-			?>
+            <?php echo $_SESSION['pass_error'];
+?>
         </div>
         <label for="role">Pasirinkite rolę</label>
 		<select class="custom-select" name="role">
-            <?php 
-                $db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-                $sql = mysqli_query($db, "SELECT id,pavadinimas FROM role");
-                while ($row = $sql->fetch_assoc()){
-                echo "<option value=".$row['id'].">" . $row['pavadinimas'] . "</option>";
-                }
-            ?>
+            <?php
+$db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+$sql = mysqli_query($db, "SELECT id,pavadinimas FROM role");
+while ($row = $sql->fetch_assoc()) {
+    echo "<option value=" . $row['id'] . ">" . $row['pavadinimas'] . "</option>";
+}
+?>
 			</select>
         <button type="submit" class="btn btn-primary" name="edituser" value="<?php echo $edituserid ?>">Registruoti</button>
-        </form>          
+        </form>
         </body>
     </html>
-   
+

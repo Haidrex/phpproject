@@ -5,7 +5,7 @@
 // toje formoje daugiau galimybių...
 
 session_start();
-include("include/functions.php");
+include "include/functions.php";
 ?>
 
 <html>
@@ -18,26 +18,33 @@ include("include/functions.php");
     <body>
 
 <?php
-           
-    if (!empty($_SESSION['user']))     //Jei vartotojas prisijungęs, valom logino kintamuosius ir rodom meniu
-    {                                  // Sesijoje nustatyti kintamieji su reiksmemis is DB
-                                       // $_SESSION['user'],$_SESSION['ulevel'],$_SESSION['userid'],$_SESSION['umail']
-		
-		inisession("part");   //   pavalom prisijungimo etapo kintamuosius
-		$_SESSION['prev']="index"; 
-        
-        include("include/meniu.php"); //įterpiamas meniu pagal vartotojo rolę
-?>
+
+if (!empty($_SESSION['user'])) //Jei vartotojas prisijungęs, valom logino kintamuosius ir rodom meniu
+{ // Sesijoje nustatyti kintamieji su reiksmemis is DB
+    // $_SESSION['user'],$_SESSION['ulevel'],$_SESSION['userid'],$_SESSION['umail']
+
+    inisession("part"); //   pavalom prisijungimo etapo kintamuosius
+    $_SESSION['prev'] = "index";
+
+    include "include/meniu.php"; //įterpiamas meniu pagal vartotojo rolę
+
+    ?>
+<div id="introMessage"><center>Sandėlio infomacinė sistema</center></td></tr></table> <br></div>
       <?php
-          }                
-          else {   			 
-              
-              if (!isset($_SESSION['prev'])) inisession("full");             // nustatom sesijos kintamuju pradines reiksmes 
-              else {if ($_SESSION['prev'] != "proclogin") inisession("part"); // nustatom pradines reiksmes formoms
-                   }  
-   			  // jei ankstesnis puslapis perdavė $_SESSION['message']          
-                include("include/login.php");
-		  }
+} else {
+
+    if (!isset($_SESSION['prev'])) {
+        inisession("full");
+    }
+    // nustatom sesijos kintamuju pradines reiksmes
+    else {if ($_SESSION['prev'] != "proclogin") {
+        inisession("part");
+    }
+        // nustatom pradines reiksmes formoms
+    }
+    // jei ankstesnis puslapis perdavė $_SESSION['message']
+    include "include/login.php";
+}
 ?>
             </body>
 </html>

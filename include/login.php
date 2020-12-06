@@ -1,13 +1,13 @@
-<?php 
-// login.php - tai prisijungimo forma, index.php puslapio dalis 
+<?php
+// login.php - tai prisijungimo forma, index.php puslapio dalis
 // formos reikšmes tikrins proclogin.php. Esant klaidų pakartotinai rodant formą rodomos klaidos
 // formos laukų reikšmės ir klaidų pranešimai grįžta per sesijos kintamuosius
 // taip pat iš čia išeina priminti slaptažodžio.
 // perėjimas į registraciją rodomas jei nustatyta $uregister kad galima pačiam registruotis
 
-if (!isset($_SESSION)) { header("Location: logout.php");exit;}
+if (!isset($_SESSION)) {header("Location: logout.php");exit;}
 $_SESSION['prev'] = "login";
-include("include/nustatymai.php");
+include "include/nustatymai.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,15 +21,15 @@ include("include/nustatymai.php");
         <form action="proclogin.php" method="POST" id="myForm">
         <div class="form-group">
             <label for="exampleInputEmail1">Prisijungimo vardas</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user" value="<?php echo $_SESSION['name_login'];  ?>">
-            <?php echo $_SESSION['name_error']; 
-			?>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user" value="<?php echo $_SESSION['name_login']; ?>">
+            <?php echo $_SESSION['name_error'];
+?>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Slaptazodis</label>
             <input type="password" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $_SESSION['pass_login']; ?>">
-            <?php echo $_SESSION['pass_error']; 
-			?>
+            <?php echo $_SESSION['pass_error'];
+?>
         </div>
         <button type="submit" class="btn btn-primary" name="login" value="Prisijungti">Prisijungti</button>
         </form>
