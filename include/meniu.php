@@ -23,7 +23,7 @@ $role="";
         if (($userlevel == $user_roles["Administratorius"]) || ($userlevel == $user_roles[ADMIN_LEVEL] )) {
             ?>
             <!--echo "[<a href=\"operacija3.php\">Demo operacija3</a>] &nbsp;&nbsp;";-->
-            <html>
+            
             <head>
                 <title>IT Projektas</title>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -41,9 +41,31 @@ $role="";
             </div> 
             <div id="introMessage"><center>Sandėlio infomacinė sistema</center></td></tr></table> <br></div>
             </body>
-            </html>
+            
             <?php
        		}
-?>       
-    
+        ?>       
+    <?php
+        if (($userlevel == $user_roles["Vadybininkas"]) || ($userlevel == $user_roles[MANAGER_LEVEL] )) {
+            ?>
+            <!--echo "[<a href=\"operacija3.php\">Demo operacija3</a>] &nbsp;&nbsp;";-->
+            
+            <head>
+                <title>IT Projektas</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+                <link rel="stylesheet" href="include/styles.css">
+            </head>
+            <body>
+            <div class="topnav">
+                <a href="index.php">Pagrindinis</a>
+                <a href="items.php">Sandėlis</a>
+                <a href="logout.php">Atsijungti</a>
+                <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
+            </div> 
+            <div id="introMessage"><center>Sandėlio infomacinė sistema</center></td></tr></table> <br></div>
+            </body>
+            
+            <?php
+       		}
+        ?> 
  

@@ -22,8 +22,8 @@ if(checkitem($product, $amount, $price)){
     $user=  $_SESSION['userid'];
     $db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 
-    $sql = "INSERT INTO " . TBL_PRODUCTS. " (kodas, pavadinimas, kiekis, kaina, busena  , tiekejoid)
-    VALUES ('$itemid','$product', '$amount' ,'$price', 1, '$user')";
+    $sql = "INSERT INTO " . TBL_OFFER. " (pavadinimas, kiekis, kaina, busena, tiekejoid)
+    VALUES ('$product', '$amount' ,'$price', 1, '$user')";
 
     if (mysqli_query($db, $sql)) 
     {$_SESSION['offer_message']="Pasiūlymas įvykdytas sėkmingai";}

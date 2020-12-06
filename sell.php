@@ -41,7 +41,7 @@ $_SESSION['prev'] = "sell";
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
             </div>
         </body>
-
+        <center><font size="5">Nurodykite parduodamą kiekį ir kainą</font></center></td></tr></table> <br>
         <form action="procsell.php" method="POST" id="myForm"> 
         <div class="form-group">
                 <label for="exampleInputEmail1">Kiekis(Turime: <?php echo $haveamount?>)</label>

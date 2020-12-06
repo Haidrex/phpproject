@@ -39,7 +39,7 @@ date_default_timezone_set("Europe/Vilnius");
 			
 		<center><font size="5">Vartotojų registracija, peržiūra ir įgaliojimų keitimas</font></center></td></tr></table> <br>
 		<center><b><?php echo $_SESSION['message']; ?></b></center>
-		<center><a href="register.php"><button id="regButton">Registruoti</button></a><button id="saveButton">Išsaugoti pakeitimus</button></center>
+		<center><a href="register.php"><button id="regButton">Registruoti</button></a></center>
 		<table id="t01">
 		<tr>
 			<th>Prisijungimo Vardas</th>

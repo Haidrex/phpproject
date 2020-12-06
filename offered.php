@@ -45,11 +45,11 @@ $role="";
             <?php
                 $db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 
-                $sql = "SELECT * FROM " . TBL_PRODUCTS. " WHERE busena=1";
+                $sql = "SELECT * FROM " . TBL_OFFER. " WHERE busena=1";
                 $result = mysqli_query($db,$sql);
                 while($row = mysqli_fetch_array($result)){
                     echo "<tr><td>".$row['kodas']."</td><td>".$row['pavadinimas']."</td><td>".$row['tiekejoid']."</td><td>".$row['kiekis'].
-                    "</td><td>".$row['kaina']."€</td><td><form id=\"acceptForm\" method=\"post\"><button id=\"regButton\" >Priimti</button></form>
+                    "</td><td>".$row['kaina']."€</td><td><a href=\"accept.php?kodas=".$row['kodas']."\"><button id=\"regButton\" >Priimti</button></a>
                     <a href=\"deny.php?kodas=".$row['kodas']."\"><button id=\"regButton\">Atmesti</button></form></td></tr>";
                 }
             ?>

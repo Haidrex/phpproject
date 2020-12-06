@@ -32,6 +32,7 @@ function inisession($arg) {   //valom sesijos kintamuosius
 		$_SESSION['amount_sell_error']="";
 		$_SESSION['sold_message']="";
 		$_SESSION['offered_message']="";
+		$_SESSION['amount_accept_error']="";
         }
 
 function checkname ($username){   // Vartotojo vardo sintakse
@@ -173,4 +174,16 @@ function checkitem($item, $amount, $price){
 		return true;
 	}
 	
+}
+
+function checkifhoused($productname, $supplier){
+	$db=mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+	$sql = "SELECT * FROM " . TBL_PRODUCTS;
+	$result = mysqli_query($db, $sql);
+	while ($row = $result->fetch_assoc()){
+		if(($row['tiekejoid'] == $supplier) && (strcmp($row['pavadinimas'],$productname == 0))){
+			return true;
+		}
+	}
+	return false;
 }

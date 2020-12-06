@@ -37,6 +37,7 @@ $_SESSION['prev']="register";
                 <a href="logout.php">Atsijungti</a>
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
             </div>
+            <center><font size="5">Naujo vartotojo registracija</font></center>
 			<form action="procregister.php" method="POST" id="myForm">
         <div class="form-group">
             <label for="exampleInputEmail1">Prisijungimo vardas</label>
