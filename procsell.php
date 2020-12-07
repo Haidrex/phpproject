@@ -26,7 +26,7 @@ $_SESSION['amount_sell'] = $amount;
 
 $_SESSION['prev'] = "procsell";
 
-if (checkamount($sellitemid, $amount)) {
+if (checkamount($sellitemid, $amount,$price)) {
     $db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 
     $sql3 = "SELECT * FROM " . TBL_PRODUCTS . " WHERE kodas=" . $sellitemid;
@@ -46,11 +46,6 @@ if (checkamount($sellitemid, $amount)) {
         $_SESSION['sold_message'] = "Pardavimas nesėkmingas" . mysqli_error($db);
     }
     header("Location:items.php");
-    exit;
-}
-else{
-    $_SESSION['amount_sell_error'] = "Pardavimo kiekis viršyja likučių kiekį";
-    header("Location:sell.php?kodas='$sellitemid'");
     exit;
 }
 

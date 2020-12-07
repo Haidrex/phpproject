@@ -28,8 +28,11 @@ if (($userlevel == $user_roles["Administratorius"]) || ($userlevel == $user_role
 
             <head>
                 <title>IT Projektas</title>
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+                <script type="text/javascript"></script>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
                 <link rel="stylesheet" href="include/styles.css">
+                
             </head>
             <body>
             <div class="topnav">
@@ -52,6 +55,8 @@ if (($userlevel == $user_roles["Vadybininkas"]) || ($userlevel == $user_roles[MA
 
             <head>
                 <title>IT Projektas</title>
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+                <script type="text/javascript"></script>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
                 <link rel="stylesheet" href="include/styles.css">
             </head>
@@ -75,6 +80,8 @@ if (($userlevel == $user_roles["Sandėlininkas"]) || ($userlevel == $user_roles[
 
             <head>
                 <title>IT Projektas</title>
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+                <script type="text/javascript"></script>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
                 <link rel="stylesheet" href="include/styles.css">
             </head>
@@ -99,6 +106,8 @@ if (($userlevel == $user_roles["Tiekėjas"]) || ($userlevel == $user_roles[SUPPL
 
             <head>
                 <title>IT Projektas</title>
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+                <script type="text/javascript"></script>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
                 <link rel="stylesheet" href="include/styles.css">
             </head>

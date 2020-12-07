@@ -43,19 +43,19 @@ $decryptedpass = substr(hash('sha256', $password), 5, 32)
         <div class="form-group">
             <label for="exampleInputEmail1">Vardas</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" value="<?php echo $firstname ?>">
-            <?php echo $_SESSION['name_error'];
+            <?php echo $_SESSION['first_name_error'];
 ?>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Pavardė</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" value="<?php echo $lastname ?>">
-            <?php echo $_SESSION['name_error'];
+            <?php echo $_SESSION['last_name_error'];
 ?>
 		</div>
 		<div class="form-group">
             <label for="exampleInputEmail1">Elektroninis paštas</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<?php echo $email ?>">
-            <?php echo $_SESSION['name_error'];
+            <?php echo $_SESSION['mail_error'];
 ?>
         </div>
         <div class="form-group">
@@ -74,7 +74,22 @@ while ($row = $sql->fetch_assoc()) {
 }
 ?>
 			</select>
-        <button type="submit" class="btn btn-primary" name="edituser" value="<?php echo $edituserid ?>">Registruoti</button>
+        <button type="submit" class="btn btn-primary" name="edituser" id="register"value="<?php echo $edituserid ?>">Registruoti</button>
         </form>
+        <script>
+        var $input = $('input'),
+            $register = $('#register');    
+        $register.attr('disabled', true);
+
+        $input.keyup(function() {
+            var trigger = false;
+            $input.each(function() {
+                if (!$(this).val()) {
+                    trigger = true;
+                }
+            });
+            trigger ? $register.attr('disabled', true) : $register.removeAttr('disabled');
+        });
+        </script>
     </html>
 

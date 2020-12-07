@@ -13,30 +13,23 @@ include "include/nustatymai.php";
 include "include/functions.php";
 
 $_SESSION['name_error'] = "";
+$_SESSION['first_name_error'] = "";
+$_SESSION['last_name_error'] = "";
 $_SESSION['pass_error'] = "";
 $_SESSION['mail_error'] = "";
 $edituserid = $_POST['edituser'];
 $user = strtolower($_POST['user']);
-$_SESSION['name_login'] = $user;
 $pass = $_POST['pass'];
-$_SESSION['pass_login'] = $pass;
 $mail = $_POST['email'];
-$_SESSION['mail_login'] = $mail;
 $firstname = $_POST['firstname'];
-$_SESSION['first_name_login'] = $firstname;
 $lastname = $_POST['lastname'];
-$_SESSION['last_name_login'] = $lastname;
 $role = $_POST['role'];
 $_SESSION['prev'] = "procuseredit";
 
 // registracijos formos lauku  kontrole
-if (checkregname($user, $firstname, $lastname)) { // vardas  geras,  nuskaityti vartotoja is DB
+if (checkeditname($user, $firstname, $lastname,$mail,$pass)) { // vardas  geras,  nuskaityti vartotoja is DB
 
     list($dbuname) = checkdb($user); //patikrinam DB
-    if ($dbuname) { // jau yra toks vartotojas DB
-        $_SESSION['name_error'] =
-            "<font size=\"2\" color=\"#ff0000\">* Tokiu vardu jau yra registruotas vartotojas</font>";
-    } else { // gerai, vardas naujas
         $_SESSION['name_error'] = "";
         if (checkpass($pass, substr(hash('sha256', $pass), 5, 32)) && checkmail($mail)) // antra tikrinimo dalis checkpass bus true
         { // viskas tinka sukurti vartotojo irasa DB
@@ -48,7 +41,7 @@ if (checkregname($user, $firstname, $lastname)) { // vardas  geras,  nuskaityti 
             $sq1 = "UPDATE " . TBL_USERS . " (vartotojo_id, slapyvardis, email, slaptazodis, vardas, pavarde, roles_id)
           VALUES ('$userid','$user', '$mail' ,'$pass', '$firstname','$lastname', '$ulevel') WHERE slapyvardis=\"$user\"";
             $sql = "UPDATE " . TBL_USERS . " SET slapyvardis='$user' , email='$mail' , slaptazodis='$pass' , vardas='$firstname' , pavarde='$lastname' , roles_id='$ulevel' WHERE vartotojo_id='$edituserid'";
-            if (mysqli_query($db, $sql)) {$_SESSION['message'] = "Registracija sėkminga";} else { $_SESSION['message'] = "DB registracijos klaida:" . $sql . "<br>" . mysqli_error($db);}
+            if (mysqli_query($db, $sql)) {$_SESSION['message'] = "Redagavimas sėkmingas";} else { $_SESSION['message'] = "DB redagavimo klaida:" . $sql . "<br>" . mysqli_error($db);}
 
             // uzregistruotas
 
@@ -56,8 +49,8 @@ if (checkregname($user, $firstname, $lastname)) { // vardas  geras,  nuskaityti 
 
             exit;
         }
-    }
+    
 }
 // griztam taisyti
 // session_regenerate_id(true);
-header("Location:useredit.php");exit;
+header("Refresh:0 url=useredit.php?id='$edituserid'");exit;

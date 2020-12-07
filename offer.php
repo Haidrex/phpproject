@@ -38,7 +38,22 @@ $_SESSION['prev'] = "offer";
                 <?php echo $_SESSION['price_error'];
 ?>
             </div>
-            <button type="submit" class="btn btn-primary" name="offer" value="Prisijungti">Siūlyti</button>
+            <button type="submit" class="btn btn-primary" name="offer" id="offer" value="Prisijungti">Siūlyti</button>
         </form>
         </body>
+        <script>
+        var $input = $('input'),
+            $register = $('#offer');    
+        $register.attr('disabled', true);
+
+        $input.keyup(function() {
+            var trigger = false;
+            $input.each(function() {
+                if (!$(this).val()) {
+                    trigger = true;
+                }
+            });
+            trigger ? $register.attr('disabled', true) : $register.removeAttr('disabled');
+        });
+        </script>
 </html>

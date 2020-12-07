@@ -4,7 +4,7 @@ session_start();
 
 include "include/meniu.php";
 
-if (!isset($_SESSION['prev']) || ($_SESSION['prev'] != "items") || ($_SESSION['ulevel'] != $user_roles[MANAGER_LEVEL])) {header("Location: logout.php");exit;}
+if (!isset($_SESSION['prev'])|| ($_SESSION['ulevel'] != $user_roles[MANAGER_LEVEL])) {header("Location: logout.php");exit;}
 
 
 $user = $_SESSION['user'];
@@ -40,6 +40,22 @@ $_SESSION['prev'] = "sell";
                 <?php echo $_SESSION['price_sell_error'];
 ?>
             </div>
-            <button type="submit" class="btn btn-primary" name="sell" value="<?php echo $sellitemid ?>">Parduoti</button>
+            <button type="submit" class="btn btn-primary" name="sell" id="register" value="<?php echo $sellitemid ?>">Parduoti</button>
         </form>
+
+        <script>
+        var $input = $('input'),
+            $register = $('#register');    
+        $register.attr('disabled', true);
+
+        $input.keyup(function() {
+            var trigger = false;
+            $input.each(function() {
+                if (!$(this).val()) {
+                    trigger = true;
+                }
+            });
+            trigger ? $register.attr('disabled', true) : $register.removeAttr('disabled');
+        });
+        </script>
 </html>

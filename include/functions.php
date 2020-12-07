@@ -50,13 +50,21 @@ function checkname($username)
     }
 }
 
-function checkamount($productid, $amount)
+function checkamount($productid, $amount,$price)
 {
     $db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
     $sql = "SELECT * FROM " . TBL_PRODUCTS . " WHERE kodas = '$productid'";
     $result = mysqli_query($db, $sql);
     $row = mysqli_fetch_assoc($result);
     $amountleft = $row['kiekis'];
+    if($amount == null){
+        $_SESSION['amount_sell_error'] = "<font size=\"2\" color=\"#ff0000\">* Neįvestas kiekis</font>";
+        return false;
+    }
+    if($price == null){
+        $_SESSION['price_sell_error'] = "<font size=\"2\" color=\"#ff0000\">* Neįvesta kaina</font>";
+        return false;
+    }
     if ($amount > $amountleft) {
         $_SESSION['amount_sell_error'] = "<font size=\"2\" color=\"#ff0000\">* Bandoma parduoti daugiau nei yra sandėlyje</font>";
         return false;
@@ -65,7 +73,7 @@ function checkamount($productid, $amount)
 
 }
 
-function checkregname($username, $firstname, $lastname)
+function checkregname($username, $firstname, $lastname,$mail)
 {
     if (!$username || strlen($username = trim($username)) == 0) {$_SESSION['name_error'] =
             "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo vardas</font>";
@@ -80,7 +88,12 @@ function checkregname($username, $firstname, $lastname)
             "<font size=\"2\" color=\"#ff0000\">* Neįvesta vartotojo pavardė</font>";
         "";
         return false;
-    } elseif (!preg_match("/^([0-9a-zA-Z])*$/", $username)) /* Check if username is not alphanumeric */ {$_SESSION['name_error'] =
+    } elseif (!$mail || strlen($mail = trim($mail)) == 0){
+        $_SESSION['mail_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo el. paštas</font>";
+        "";
+        return false;
+    }elseif (!preg_match("/^([0-9a-zA-Z])*$/", $username)) /* Check if username is not alphanumeric */ {$_SESSION['name_error'] =
             "<font size=\"2\" color=\"#ff0000\">* Vartotojo vardas gali būti sudarytas<br>
 		&nbsp;&nbsp;tik iš raidžių ir skaičių</font>";
         return false;
@@ -173,4 +186,47 @@ function checkifhoused($productname, $supplier)
     $result = mysqli_query($db, $sql);
     $row = mysqli_fetch_array($result);
     return mysqli_num_rows($result) > 0;
+}
+function checkeditname($username, $firstname, $lastname,$mail,$pass)
+{
+    if (!$username || strlen($username = trim($username)) == 0) {$_SESSION['name_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo vardas</font>";
+        "";
+        return false;} else if (!$firstname || strlen($firstname = trim($firstname)) == 0) {
+        $_SESSION['first_name_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo vardas</font>";
+        "";
+        return false;
+    } else if (!$lastname || strlen($lastname = trim($lastname)) == 0) {
+        $_SESSION['last_name_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Neįvesta vartotojo pavardė</font>";
+        "";
+        return false;
+    } elseif (!$mail || strlen($mail = trim($mail)) == 0){
+        $_SESSION['mail_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo el. paštas</font>";
+        "";
+        return false;
+    }elseif (!$pass || strlen($pass = trim($pass)) == 0){
+        $_SESSION['pass_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo slaptažodis</font>";
+        "";
+        return false;
+    }elseif (!preg_match("/^([0-9a-zA-Z])*$/", $username)) /* Check if username is not alphanumeric */ {$_SESSION['name_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Vartotojo vardas gali būti sudarytas<br>
+		&nbsp;&nbsp;tik iš raidžių ir skaičių</font>";
+        return false;
+    } else if (preg_match('~[0-9]+~', $firstname)) {
+        $_SESSION['first_name_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Vartotojo vardas gali būti sudarytas tik iš raidžių</font>";
+        "";
+        return false;
+    } else if (preg_match('~[0-9]+~', $lastname)) {
+        $_SESSION['last_name_error'] =
+            "<font size=\"2\" color=\"#ff0000\">* Vartotojo pavardė gali būti sudaryta tik iš raidžių</font>";
+        "";
+        return false;
+    } else {
+        return true;
+    }
 }

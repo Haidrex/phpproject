@@ -15,6 +15,8 @@ include "include/functions.php";
 $_SESSION['name_error'] = "";
 $_SESSION['pass_error'] = "";
 $_SESSION['mail_error'] = "";
+$_SESSION['first_name_error'] = "";
+$_SESSION['last_name_error'] = "";
 $user = strtolower($_POST['user']);
 $_SESSION['name_login'] = $user;
 $pass = $_POST['pass'];
@@ -29,7 +31,7 @@ $role = $_POST['role'];
 $_SESSION['prev'] = "procregister";
 
 // registracijos formos lauku  kontrole
-if (checkregname($user, $firstname, $lastname)) { // vardas  geras,  nuskaityti vartotoja is DB
+if (checkregname($user, $firstname, $lastname, $mail)) { // vardas  geras,  nuskaityti vartotoja is DB
 
     list($dbuname) = checkdb($user); //patikrinam DB
     if ($dbuname) { // jau yra toks vartotojas DB

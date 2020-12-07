@@ -14,6 +14,7 @@ $role = "";
 }
 }
 }
+$_SESSION['message'] = "";
 $_SESSION['prev'] = "items";
 ?>
 
