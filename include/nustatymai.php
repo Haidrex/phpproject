@@ -19,6 +19,7 @@ define("DEFAULT_LEVEL", "Studentas"); // kokia rolė priskiriama kai registruoja
 define("ADMIN_LEVEL", "Administratorius"); // kas turi vartotojų valdymo teisę
 define("MANAGER_LEVEL", "Vadybininkas");
 define("WAREHOUSE_LEVEL", "Sandėlininkas");
+define("SUPPLIER_LEVEL", "Tiekėjas");
 define("UZBLOKUOTAS", "255"); // vartotojas negali prisijungti kol administratorius nepakeis rolės
 $uregister = "both"; // kaip registruojami vartotojai
 // self - pats registruojasi, admin - tik ADMIN_LEVEL, both - abu atvejai

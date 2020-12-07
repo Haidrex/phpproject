@@ -1,11 +1,12 @@
 <?php
 
 session_start();
-
-if (!isset($_SESSION['prev']) || ($_SESSION['prev'] != "offered")) {header("Location: logout.php");exit;}
-
 include "include/nustatymai.php";
 include "include/functions.php";
+
+if (!isset($_SESSION['prev']) || ($_SESSION['ulevel'] != $user_roles[WAREHOUSE_LEVEL])) {header("Location: logout.php");exit;}
+
+
 
 $itemid = $_GET['kodas'];
 

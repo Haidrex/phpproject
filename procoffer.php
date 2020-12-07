@@ -27,3 +27,4 @@ if (checkitem($product, $amount, $price)) {
     if (mysqli_query($db, $sql)) {$_SESSION['offer_message'] = "Pasiūlymas įvykdytas sėkmingai";} else { $_SESSION['offer_message'] = "DB pasiūlymo klaida:" . $sql . "<br>" . mysqli_error($db);}
 }
 header("Location:offer.php");exit;
+?>

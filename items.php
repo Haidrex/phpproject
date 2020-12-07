@@ -5,7 +5,7 @@
 session_start();
 include "include/meniu.php";
 // cia sesijos kontrole
-if (!isset($_SESSION['prev'])) {header("Location:logout.php");exit;}
+if (!isset($_SESSION['prev']) || ($_SESSION['ulevel'] == $user_roles[SUPPLIER_LEVEL])) {header("Location:logout.php");exit;}
 $user = $_SESSION['user'];
 $userlevel = $_SESSION['ulevel'];
 $role = "";
@@ -24,7 +24,7 @@ $_SESSION['prev'] = "items";
                 <tr>
                     <th>ID</th>
                     <th>Pavadinimas</th>
-                    <th>Tiekėjas</th>
+                    <th>Tiekėjo id</th>
                     <th>Kiekis sandėlyje</th>
                     <th>Pirkimo kaina</th>
                     <th></th>
@@ -32,7 +32,7 @@ $_SESSION['prev'] = "items";
                 <?php
 $db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 
-$sql = "SELECT * FROM " . TBL_PRODUCTS . " WHERE busena=2";
+$sql = "SELECT * FROM " . TBL_PRODUCTS;
 $result = mysqli_query($db, $sql);
 while ($row = mysqli_fetch_array($result)) {
     echo "<tr><td>" . $row['kodas'] . "</td><td>" . $row['pavadinimas'] . "</td><td>" . $row['tiekejoid'] . "</td><td>" . $row['kiekis'] .

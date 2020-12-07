@@ -3,10 +3,9 @@
 // skirtapakeisti savo sudaryta operacija pratybose
 
 session_start();
-include "include/nustatymai.php";
-include "include/functions.php";
+include "include/meniu.php";
 // cia sesijos kontrole
-if (empty($_SESSION['prev'])) {header("Location:logout.php");exit;}
+if (empty($_SESSION['prev']) || ($_SESSION['ulevel'] != $user_roles[SUPPLIER_LEVEL])) {header("Location:logout.php");exit;}
 $user = $_SESSION['user'];
 $userlevel = $_SESSION['ulevel'];
 $role = "";
@@ -18,24 +17,7 @@ $role = "";
 $_SESSION['prev'] = "offer";
 ?>
 
-<html>
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
-        <title>Prekės</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-        <link href="include/styles.css" rel="stylesheet" type="text/css" >
-    </head>
-    <body>
-            <div class="topnav">
-                <a href="index.php">Pagrindinis</a>
-                <a href="admin.php">Vartotojai</a>
-                <a href="items.php">Sandėlis</a>
-                <a href="offer.php">Siūlyti prekę</a>
-                <a href="offered.php">Siūlomos prekės</a>
-                <a href="logout.php">Atsijungti</a>
-                <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
-            </div>
             <center><b><?php echo $_SESSION['offer_message']; ?></b></center>
         <form action="procoffer.php" method="POST" id="myForm">
             <div class="form-group">

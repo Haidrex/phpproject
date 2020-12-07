@@ -36,8 +36,7 @@ if (($userlevel == $user_roles["Administratorius"]) || ($userlevel == $user_role
                 <a href="index.php">Pagrindinis</a>
                 <a href="admin.php">Vartotojai</a>
                 <a href="items.php">Sandėlis</a>
-                <a href="offer.php">Siūlyti prekę</a>
-                <a href="offered.php">Siūlomos prekės</a>
+                <a href="sold.php">Pardavimai</a>
                 <a href="logout.php">Atsijungti</a>
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
             </div>
@@ -60,6 +59,7 @@ if (($userlevel == $user_roles["Vadybininkas"]) || ($userlevel == $user_roles[MA
             <div class="topnav">
                 <a href="index.php">Pagrindinis</a>
                 <a href="items.php">Sandėlis</a>
+                <a href="sold.php">Pardavimai</a>
                 <a href="logout.php">Atsijungti</a>
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
             </div>
@@ -91,9 +91,9 @@ if (($userlevel == $user_roles["Sandėlininkas"]) || ($userlevel == $user_roles[
 
             <?php
 }
-?>
+?>  
  <?php
-if (($userlevel == $user_roles["Sandėlininkas"]) || ($userlevel == $user_roles[WAREHOUSE_LEVEL])) {
+if (($userlevel == $user_roles["Tiekėjas"]) || ($userlevel == $user_roles[SUPPLIER_LEVEL])) {
     ?>
             <!--echo "[<a href=\"operacija3.php\">Demo operacija3</a>] &nbsp;&nbsp;";-->
 
@@ -105,8 +105,8 @@ if (($userlevel == $user_roles["Sandėlininkas"]) || ($userlevel == $user_roles[
             <body>
             <div class="topnav">
                 <a href="index.php">Pagrindinis</a>
-                <a href="items.php">Sandėlis</a>
-                <a href="offered.php">Siūlomos prekės</a>
+                <a href="offer.php">Siūlyti prekę</a>
+                <a href="myoffers.php">Mano pasiūlymai</a>
                 <a href="logout.php">Atsijungti</a>
                 <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
             </div>

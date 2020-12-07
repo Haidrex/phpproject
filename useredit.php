@@ -8,8 +8,7 @@
 session_start();
 // registracija galima kai nera userio arba adminas
 // kitaip kai sesija expirinasi blogai, laikykim, kad prev vistik visada nustatoma
-include "include/nustatymai.php";
-include "include/functions.php";
+include "include/meniu.php";
 if ($_SESSION['prev'] != "procuseredit") {
     inisession("part");
 }
@@ -36,24 +35,6 @@ $email = $row['email'];
 $password = $row['slaptazodis'];
 $decryptedpass = substr(hash('sha256', $password), 5, 32)
 ?>
-    <html>
-        <head>
-            <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8">
-			<title>Registracija</title>
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-            <link href="include/styles.css" rel="stylesheet" type="text/css" >
-        </head>
-        <body>
-		<div class="topnav">
-                <a href="index.php">Pagrindinis</a>
-                <a href="admin.php">Vartotojai</a>
-                <a href="items.php">Sandėlis</a>
-                <a href="offer.php">Siūlyti prekę</a>
-                <a href="offered.php">Siūlomos prekės</a>
-                <a href="logout.php">Atsijungti</a>
-                <p id="currentUser">Prisijunges vartotojas: <?php echo $user; ?> Rolė: <?php echo $role; ?></p>
-            </div>
 			<form action="procuseredit.php" method="POST" id="myForm">
         <div class="form-group">
             <label for="exampleInputEmail1">Prisijungimo vardas</label>
@@ -97,6 +78,5 @@ while ($row = $sql->fetch_assoc()) {
 			</select>
         <button type="submit" class="btn btn-primary" name="edituser" value="<?php echo $edituserid ?>">Registruoti</button>
         </form>
-        </body>
     </html>
 

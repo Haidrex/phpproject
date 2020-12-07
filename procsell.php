@@ -48,6 +48,11 @@ if (checkamount($sellitemid, $amount)) {
     header("Location:items.php");
     exit;
 }
+else{
+    $_SESSION['amount_sell_error'] = "Pardavimo kiekis viršyja likučių kiekį";
+    header("Location:sell.php?kodas='$sellitemid'");
+    exit;
+}
 
 header("Location:sell.php?kodas='$sellitemid'");
 exit;
