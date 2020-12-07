@@ -17,7 +17,7 @@ $role = "";
 $_SESSION['prev'] = "offer";
 ?>
 
-
+        <center><font size="5">Pateikti pasiūlymo informaciją</font></center></td></tr></table> <br>
             <center><b><?php echo $_SESSION['offer_message']; ?></b></center>
         <form action="procoffer.php" method="POST" id="myForm">
             <div class="form-group">

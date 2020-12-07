@@ -9,9 +9,7 @@ session_start();
 // registracija galima kai nera userio arba adminas
 // kitaip kai sesija expirinasi blogai, laikykim, kad prev vistik visada nustatoma
 include "include/meniu.php";
-if ($_SESSION['prev'] != "procuseredit") {
-    inisession("part");
-}
+if (!isset($_SESSION['prev']) || ($_SESSION['ulevel'] != $user_roles[ADMIN_LEVEL])) {header("Location: logout.php");exit;}
 // pradinis bandymas registruoti
 $user = $_SESSION['user'];
 $userlevel = $_SESSION['ulevel'];
