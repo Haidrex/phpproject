@@ -27,18 +27,18 @@ $offeredamount = $row['kiekis'];
 $offeredprice = $row['kaina'];
 $supplier = $row['tiekejoid'];
 
-if (checkifhoused($productname, $supplier)) {
-    $sql1 = "UPDATE " . TBL_PRODUCTS . " SET kiekis=kiekis+'$kiekis' WHERE pavadinimas='$productname' AND tiekejoid='$supplier'";
-    $sql3 = "UPDATE " . TBL_OFFER . " SET busena=2 WHERE kodas='$kodas'";
-    mysqli_query($db, $sql1);
-    mysqli_query($db, $sql3);
-} else {
-    $sql2 = "INSERT INTO " . TBL_PRODUCTS . " (pavadinimas, kiekis, kaina,tiekejoid)
-    VALUES ('$productname', '$kiekis' ,'$offeredprice','$supplier')";
-    $sql4 = "UPDATE " . TBL_OFFER . " SET busena=2 WHERE kodas='$kodas'";
-    mysqli_query($db, $sql2);
-    mysqli_query($db, $sql4);
-}
+    if (checkifhoused($productname, $supplier)) {
+        $sql1 = "UPDATE " . TBL_PRODUCTS . " SET kiekis=kiekis+'$kiekis' WHERE pavadinimas='$productname' AND tiekejoid='$supplier'";
+        $sql3 = "UPDATE " . TBL_OFFER . " SET busena=2 WHERE kodas='$kodas'";
+        mysqli_query($db, $sql1);
+        mysqli_query($db, $sql3);
+    } else {
+        $sql2 = "INSERT INTO " . TBL_PRODUCTS . " (pavadinimas, kiekis, kaina,tiekejoid)
+        VALUES ('$productname', '$kiekis' ,'$offeredprice','$supplier')";
+        $sql4 = "UPDATE " . TBL_OFFER . " SET busena=2 WHERE kodas='$kodas'";
+        mysqli_query($db, $sql2);
+        mysqli_query($db, $sql4);
+    }
 
 
 header("Location:offered.php");exit;

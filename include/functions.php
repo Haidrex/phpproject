@@ -182,11 +182,13 @@ function checkitem($item, $amount, $price)
 function checkifhoused($productname, $supplier)
 {
     $db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-    $sql = "SELECT * FROM " . TBL_PRODUCTS. "WHERE pavadinimas='$productname' AND tiekejoid='$supplier'";
+    $sql = "SELECT * FROM " . TBL_PRODUCTS. " WHERE pavadinimas='$productname' AND tiekejoid='$supplier'";
     $result = mysqli_query($db, $sql);
     $row = mysqli_fetch_array($result);
     return mysqli_num_rows($result) > 0;
 }
+
+
 function checkeditname($username, $firstname, $lastname,$mail,$pass)
 {
     if (!$username || strlen($username = trim($username)) == 0) {$_SESSION['name_error'] =
